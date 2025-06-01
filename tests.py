@@ -1,4 +1,3 @@
-
 import pytest
 from main import BooksCollector
 
@@ -79,28 +78,28 @@ class TestBooksCollector:
         collector.add_book_in_favorites("Книга6")
         collector.delete_book_from_favorites("Книга6")
         assert "Книга6" not in collector.get_list_of_favorites_books()
-from main import BooksCollector
 
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
-class TestBooksCollector:
-
-    # пример теста:
-    # обязательно указывать префикс test_
-    # дальше идет название метода, который тестируем add_new_book_
-    # затем, что тестируем add_two_books - добавление двух книг
-    def test_add_new_book_add_two_books(self):
-        # создаем экземпляр (объект) класса BooksCollector
+    # ✅ Позитивная проверка для get_book_genre
+    def test_get_book_genre_returns_correct_genre(self):
         collector = BooksCollector()
+        collector.add_new_book("Книга7")
+        collector.set_book_genre("Книга7", "Детективы")
+        assert collector.get_book_genre("Книга7") == "Детективы"
 
-        # добавляем две книги
-        collector.add_new_book('Гордость и предубеждение и зомби')
-        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+    # ✅ Позитивная проверка для get_books_genre
+    def test_get_books_genre_returns_all_books(self):
+        collector = BooksCollector()
+        collector.add_new_book("Книга8")
+        collector.add_new_book("Книга9")
+        books_genre = collector.get_books_genre()
+        assert "Книга8" in books_genre
+        assert "Книга9" in books_genre
 
-        # проверяем, что добавилось именно две
-        # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
-        assert len(collector.get_books_rating()) == 2
-
-    # напиши свои тесты ниже
-    # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
-
+    # ✅ Позитивная проверка для get_list_of_favorites_books
+    def test_get_list_of_favorites_books_returns_correct_list(self):
+        collector = BooksCollector()
+        collector.add_new_book("Книга10")
+        collector.add_new_book("Книга11")
+        collector.add_book_in_favorites("Книга10")
+        favorites = collector.get_list_of_favorites_books()
+        assert favorites == ["Книга10"]
